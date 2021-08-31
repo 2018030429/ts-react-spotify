@@ -1,6 +1,6 @@
 type Params = {
   url: string,
-  params: any,
+  params?: any,
   method: any,
   body: any,
   headers: any
@@ -10,13 +10,11 @@ export default function apiCall({
   url,
   body,
   headers,
-  method,
-  params
+  method
 }: Params) {
   return fetch(url, { 
     method, 
     body, 
     headers, 
-    params
   })
 }

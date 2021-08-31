@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { spotifyAuthCall } from '../../utils';
 
 import homeImage from '../../assets/images/home.png';
 import './style.css';
@@ -8,10 +9,15 @@ const spotifyUrl = `https://accounts.spotify.com/authorize?client_id=${import.me
 
 export default function Home() {
   const location = useLocation();
+
+  const authenticateUser = async (spotifyCode:string) => {
+    const resolve = await spotifyAuthCall(spotifyCode);
+  }
   
   useEffect(() => {
     const urlParms = new URLSearchParams(location.search);
     const spotifyCode = urlParms.get("code");
+    spotifyCode && authenticateUser(spotifyCode);
   }, [location.search]);
 
   const handleLoginClick = () => {
