@@ -15,7 +15,6 @@ export default React.memo(function Track({ track }:Props) {
       name={track.name}
       artist={track?.artists[0].name!}
       releaseDate={track.album?.release_date!}
-      onClick={() => {}}
       externalUrl={track.external_urls.spotify} />
   )
 })

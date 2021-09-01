@@ -48,9 +48,14 @@ export default function Home() {
         </button>
       </div>
       <HomeFilters />
-      <button onClick={resetfilter}>Clear Filters</button>
-      <div>
-        { searchResponse?.tracks?.items.map((track, i) => <Track key={i} track={track} />) }
+      <button className="home-clean-filters-button" onClick={resetfilter}>
+        Clear Filters
+      </button>
+      <div className="home-tracks-container">
+        <p>Songs</p>
+        <div className="home-tracks-container-items">
+          { searchResponse?.tracks?.items.map((track, i) => <Track key={i} track={track} />) }
+        </div>
       </div>
     </div>
   );

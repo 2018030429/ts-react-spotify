@@ -5,15 +5,18 @@ type Props = {
   imageUrl: string,
   id: string,
   externalUrl: string,
-  onClick: (externalUrl:string) => void,
   releaseDate: string,
   name: string,
   artist: string
 }
 
-export default React.memo(function ListItem({ imageUrl, id, name, artist, releaseDate, onClick, externalUrl }:Props) {
+export default React.memo(function ListItem({ imageUrl, id, name, artist, releaseDate, externalUrl }:Props) {
+  const handleListItemClick = () => {
+    window.open(externalUrl, '_blank')
+  };
+
   return (
-    <div className="list-item" onClick={() => onClick(externalUrl)}>
+    <div className="list-item" onClick={handleListItemClick}>
       <img src={imageUrl} alt={id} />
       <p className="list-item-title">{name}</p>
       <p className="list-item-artist">{artist}</p>
