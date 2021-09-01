@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import './style.css';
 
+import { useRecoilState } from 'recoil';
+import { spotifyResult } from '../../recoil/songs/atoms'
 import { spotifyTokenResponse } from '../../recoil/auth/atoms';
 import seekerImage from '../../assets/images/seeker.png';
-import { useRecoilState } from 'recoil';
 import { spotifySearchCall } from '../../utils'
+import HomeFilters from '../../components/HomeFilters'
 
 export default function Home() {
   const [searchText, setSearchText] = useState('');
   const [tokenResponse] = useRecoilState<any>(spotifyTokenResponse);
+  const [searchResponse, setSearchResponse] = useRecoilState(spotifyResult);
+
   const handleSearchClick = async () => {
-    // TODO: execute to spotify api
     const params = [
       {
         q: searchText
@@ -22,8 +25,8 @@ export default function Home() {
         offset: 50
       }
     ]
-    const searchResponse = await spotifySearchCall(params, tokenResponse.access_token);
-    console.log(searchResponse)
+    const response = await spotifySearchCall(params, tokenResponse.access_token);
+    setSearchResponse(response);
   }
 
   return (
@@ -37,6 +40,7 @@ export default function Home() {
           Search
         </button>
       </div>
+      <HomeFilters />
     </div>
   );
 }
