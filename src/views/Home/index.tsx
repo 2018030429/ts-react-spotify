@@ -8,11 +8,13 @@ import seekerImage from '../../assets/images/seeker.png';
 import { spotifySearchCall } from '../../utils'
 import HomeFilters from '../../components/HomeFilters'
 import { filterType as filterTypeSelector } from '../../recoil/songs/selectors';
+import { SpotifyResponse } from '../../components/models/SpotifyResponse';
+import Track from '../../components/Track';
 
 export default function Home() {
   const [searchText, setSearchText] = useState('');
   const [tokenResponse] = useRecoilState<any>(spotifyTokenResponse);
-  const [searchResponse, setSearchResponse] = useRecoilState(spotifyResult);
+  const [searchResponse, setSearchResponse] = useRecoilState<SpotifyResponse>(spotifyResult);
   const [filterType] = useRecoilState(filterTypeSelector);
   const resetfilter = useResetRecoilState(filterTypeSelector);
 
@@ -47,6 +49,9 @@ export default function Home() {
       </div>
       <HomeFilters />
       <button onClick={resetfilter}>Clear Filters</button>
+      <div>
+        { searchResponse?.tracks?.items.map((track, i) => <Track key={i} track={track} />) }
+      </div>
     </div>
   );
 }
