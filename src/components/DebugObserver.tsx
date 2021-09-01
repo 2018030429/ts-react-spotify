@@ -1,6 +1,6 @@
 import { useRecoilTransactionObserver_UNSTABLE } from 'recoil';
 
-export const keysAbleToSave = ['spotifyRefreshToken', 'spotifyTokenResponse'];
+export const keysAbleToSave = ['spotifyRefreshToken', 'spotifyTokenResponse', 'isAuthenticated'];
 
 export default function DebugObserver() :null {
   useRecoilTransactionObserver_UNSTABLE(({ snapshot }) => {

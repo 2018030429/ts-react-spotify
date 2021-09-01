@@ -16,7 +16,7 @@ const spotifyUrl = `https://accounts.spotify.com/authorize?client_id=${import.me
 
 export default function Login() {
   const location = useLocation();
-  const [, setIsAuthenticated] = useRecoilState(isAuthenticatedAtom);
+  const [isAuthenticated, setIsAuthenticated] = useRecoilState(isAuthenticatedAtom);
   const [spotifyTokenResponse, setSpotifyTokenResponse] = useRecoilState(spotifyTokenResponseAtom);
   const [spotifyRefreshToken, setSpotifyRefreshToken] = useRecoilState(spotifyRefreshTokenAtom);
   const history = useHistory();
@@ -51,7 +51,8 @@ export default function Login() {
   useEffect(() => {
     const urlParms = new URLSearchParams(location.search);
     const spotifyCode = urlParms.get("code");
-    spotifyCode && authenticateUser(spotifyCode);
+    let flag = spotifyCode || isAuthenticated;
+    flag && authenticateUser(spotifyCode!);
   }, [location.search]);
 
   const handleLoginClick = () => {

@@ -1,6 +1,6 @@
 import { MutableSnapshot } from 'recoil';
 import { keysAbleToSave } from '../../components/DebugObserver';
-import { spotifyRefreshToken, spotifyTokenResponse } from '../auth/atoms';
+import { spotifyRefreshToken, spotifyTokenResponse, isAuthenticated } from '../auth/atoms';
 
 const atomsToSave = [
   {
@@ -10,6 +10,10 @@ const atomsToSave = [
   {
     key: keysAbleToSave[1],
     atom: spotifyTokenResponse
+  },
+  {
+    key: keysAbleToSave[2],
+    atom: isAuthenticated
   }
 ];
 
