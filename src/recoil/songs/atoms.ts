@@ -10,11 +10,6 @@ export const album = atom({
   default: false
 });
 
-export const track = atom({
-  key: 'track',
-  default: false
-});
-
 export const artist = atom({
   key: 'artist',
   default: false

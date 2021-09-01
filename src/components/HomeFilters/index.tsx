@@ -6,7 +6,6 @@ import { useRecoilState } from 'recoil';
 
 export default function HomeFilters() {
   const [album, setAlbum] = useRecoilState(atoms.album);
-  const [track, setTrack] = useRecoilState(atoms.track);
   const [artist, setArtist] = useRecoilState(atoms.artist);
   const [episode, setEpisode] = useRecoilState(atoms.episode);
   const [playlist, setPlaylist] = useRecoilState(atoms.playlist);
@@ -36,14 +35,6 @@ export default function HomeFilters() {
           name="playlist" 
           checked={playlist} 
           onChange={({target}) => setPlaylist(target.checked? true : false)} />
-      </label>
-      <label>
-        Track
-        <input 
-          type="checkbox" 
-          name="track" 
-          checked={track} 
-          onChange={({target}) => setTrack(target.checked? true : false)} />
       </label>
       <label>
         Episode

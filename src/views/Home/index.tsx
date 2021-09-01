@@ -1,25 +1,30 @@
 import React, { useState } from 'react';
 import './style.css';
 
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { spotifyResult } from '../../recoil/songs/atoms'
 import { spotifyTokenResponse } from '../../recoil/auth/atoms';
 import seekerImage from '../../assets/images/seeker.png';
 import { spotifySearchCall } from '../../utils'
 import HomeFilters from '../../components/HomeFilters'
+import { filterType as filterTypeSelector } from '../../recoil/songs/selectors';
 
 export default function Home() {
   const [searchText, setSearchText] = useState('');
   const [tokenResponse] = useRecoilState<any>(spotifyTokenResponse);
   const [searchResponse, setSearchResponse] = useRecoilState(spotifyResult);
+  const [filterType] = useRecoilState(filterTypeSelector);
+  const resetfilter = useResetRecoilState(filterTypeSelector);
 
   const handleSearchClick = async () => {
+    let type = filterType ?? 'track';
+
     const params = [
       {
         q: searchText
       }, 
       {
-        type: 'track,artist'
+        type 
       },
       {
         offset: 50
@@ -41,6 +46,7 @@ export default function Home() {
         </button>
       </div>
       <HomeFilters />
+      <button onClick={resetfilter}>Clear Filters</button>
     </div>
   );
 }
