@@ -1,6 +1,6 @@
 import apiCall from '../api';
 
-type RequiredParamsType = { code: string } | { refresh_token: string };
+type RequiredParamsType = { code: string, grant_type: string } | { refresh_token: string, grant_type: string };
 
 const commonParams = {
   redirect_uri: import.meta.env.VITE_CALLBACK_HOST,
@@ -12,7 +12,6 @@ export const spotifyAuthCall = async (requiredParams:RequiredParamsType) => {
   try {
     const params = { 
       ...requiredParams,
-      grant_type: 'authorization_code',
       ...commonParams
     };
   
