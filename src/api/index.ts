@@ -2,7 +2,7 @@ type Params = {
   url: string,
   params?: any,
   method: any,
-  body: any,
+  body?: any,
   headers: any
 }
 

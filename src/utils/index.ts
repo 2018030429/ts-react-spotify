@@ -33,3 +33,29 @@ export const spotifyAuthCall = async (requiredParams:RequiredParamsType) => {
     console.log(error);
   }
 };
+
+type SearchParams = {}[];
+
+export const spotifySearchCall = async (params:SearchParams, token:string) => {
+  try {
+    const url = new URL("https://api.spotify.com/v1/search");
+  
+    for (const param of params) {
+      const key = Object.keys(param)[0];
+      // @ts-ignore
+      url.searchParams.append(key, param[key]);
+    }
+    
+    const spotifyCall = await apiCall({
+      method: 'GET',
+      url: url.toString(),
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    
+    return await spotifyCall.json();
+  } catch (error) {
+    console.log(error);
+  }
+};

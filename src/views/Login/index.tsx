@@ -45,6 +45,7 @@ export default function Login() {
       console.error(error);
       setSpotifyRefreshToken('');
       setSpotifyTokenResponse('');
+      setIsAuthenticated(false);
     }
   }, [setSpotifyRefreshToken, setSpotifyTokenResponse, setIsAuthenticated, spotifyRefreshToken]);
   
