@@ -1,7 +1,14 @@
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { spotifyAuthCall } from '../../utils';
+import React, { useCallback, useEffect } from 'react';
 
+import { useRecoilState } from 'recoil';
+import { useLocation } from 'react-router-dom';
+
+import { 
+  isAuthenticated as isAuthenticatedAtom, 
+  spotifyRefreshToken as spotifyRefreshTokenAtom,
+  spotifyTokenResponse as spotifyTokenResponseAtom 
+} from '../../recoil/auth/atoms';
+import { spotifyAuthCall } from '../../utils';
 import homeImage from '../../assets/images/home.png';
 import './style.css';
 
@@ -9,10 +16,30 @@ const spotifyUrl = `https://accounts.spotify.com/authorize?client_id=${import.me
 
 export default function Home() {
   const location = useLocation();
+  const [, setIsAuthenticated] = useRecoilState(isAuthenticatedAtom);
+  const [spotifyTokenResponse, setSpotifyTokenResponse] = useRecoilState(spotifyTokenResponseAtom);
+  const [spotifyRefreshToken, setSpotifyRefreshToken] = useRecoilState(spotifyRefreshTokenAtom);
+  
+  const authenticateUser = useCallback(async (code:string) => {
+    try {
+      let response;
+  
+      if (spotifyRefreshToken) {
+        response = await spotifyAuthCall({ refresh_token: spotifyRefreshToken });
+      } else {
+        response = await spotifyAuthCall({ code });
+      }
+  
+      setSpotifyRefreshToken(response?.refresh_token);
+      setSpotifyTokenResponse(response);
+      setIsAuthenticated(true);
+      console.log(response);
 
-  const authenticateUser = async (spotifyCode:string) => {
-    const resolve = await spotifyAuthCall(spotifyCode);
-  }
+      // TODO: redirect to search page
+    } catch (error) {
+      console.error(error);
+    }
+  }, [setSpotifyRefreshToken, setSpotifyTokenResponse, setIsAuthenticated, spotifyRefreshToken]);
   
   useEffect(() => {
     const urlParms = new URLSearchParams(location.search);
