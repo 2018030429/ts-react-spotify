@@ -57,7 +57,11 @@
   font-family: 'Montserrat',sans-serif;
 }
 
-.home-tracks-container {
+.home-tracks-container,
+.home-albums-container,
+.home-artists-container,
+.home-playlists-container,
+.home-episodes-container {
   margin: 2rem 5rem;
   overflow-x: scroll;
   border-radius: 25px;
@@ -65,11 +69,19 @@
   background-color: #F4F4F4;
 }
 
-.home-tracks-container > p {
+.home-tracks-container    > p,
+.home-albums-container    > p,
+.home-artists-container   > p,
+.home-playlists-container > p,
+.home-episodes-container  > p {
   font-weight: bold;
 }
 
-.home-tracks-container-items {
+.home-tracks-container-items,
+.home-albums-container-items,
+.home-artists-container-items,
+.home-playlists-container-items,
+.home-episodes-container-items {
   display: flex;
   flex-direction: row;
 }

@@ -10,6 +10,10 @@ import HomeFilters from '../../components/HomeFilters'
 import { filterType as filterTypeSelector } from '../../recoil/songs/selectors';
 import { SpotifyResponse } from '../../components/models/SpotifyResponse';
 import Track from '../../components/Track';
+import Album from '../../components/Album';
+import Artist from '../../components/Artist';
+import Playlist from '../../components/Playlist';
+import Episode from '../../components/Episode';
 
 export default function Home() {
   const [searchText, setSearchText] = useState('');
@@ -57,6 +61,34 @@ export default function Home() {
           { searchResponse?.tracks?.items.map((track, i) => <Track key={i} track={track} />) }
         </div>
       </div>
+
+      {searchResponse?.albums?.items.length && (<div className="home-albums-container">
+        <p>Albums</p>
+        <div className="home-albums-container-items">
+          { searchResponse?.albums?.items.map((album, i) => <Album key={i} album={album} />) }
+        </div>
+      </div>)}
+
+      {searchResponse?.artists?.items.length && (<div className="home-artists-container">
+        <p>Artists</p>
+        <div className="home-artists-container-items">
+          { searchResponse?.artists?.items.map((artist, i) => <Artist key={i} artist={artist} />) }
+        </div>
+      </div>)}
+      
+      {searchResponse?.playlists?.items.length && (<div className="home-playlists-container">
+        <p>Playlists</p>
+        <div className="home-playlists-container-items">
+          { searchResponse?.playlists?.items.map((playlist, i) => <Playlist key={i} playlist={playlist} />) }
+        </div>
+      </div>)}
+
+      {searchResponse?.episodes?.items.length && (<div className="home-episodes-container">
+        <p>Episodes</p>
+        <div className="home-episodes-container-items">
+          { searchResponse?.episodes?.items.map((episode, i) => <Episode key={i} episode={episode} />) }
+        </div>
+      </div>)}
     </div>
   );
 }

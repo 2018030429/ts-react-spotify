@@ -23,7 +23,7 @@ export interface Item {
   external_urls:           ExternalUrls;
   href:                    string;
   id:                      string;
-  images?:                 Image[];
+  images:                  Image[];
   name:                    string;
   release_date?:           Date;
   release_date_precision?: ReleaseDatePrecision;
